@@ -5,6 +5,7 @@ import markdown2
 from django import forms
 from django.urls import reverse
 from django.contrib import messages
+from django.http import HttpResponseRedirect
 
 class EntryForm(forms.Form):
     title = forms.CharField()
@@ -41,19 +42,22 @@ def search(request):
     rand = random.choice(entries)
     q = request.GET.get('q')
     error_msg = ''
+    results = []
 
-    if not q:
-        error_msg = '请输入关键词'
-        messages.add_message(request, messages.ERROR, error_msg, extra_tags='danger')
-    return  render(request, "encyclopedia/index.html", {
-        "random": rand
-    })
+    if request.method == "GET":
+        if q in entries:
+            return HttpResponseRedirect("/wiki/" + request.GET.get("q"))
 
-    post_list = Post.objects.fliter(title_icontains=q)
-    return render(request, 'encyclopedia/search.html', {
-        "post_list": post_list,
-        "entries": entries
-    })
+        else:
+            for entry in entries:
+                if q in entry:
+                    results.append(entry)
+                    return render(request, "encyclopedia/search.html", {
+                        "results": results,
+                        "random": rand
+                    })
+
+
 
 
 
