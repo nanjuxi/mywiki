@@ -49,9 +49,10 @@ def search(request):
         "random": rand
     })
 
-    post_list = Post.objects.fliter(title_icontains = q)
-    return render(request, 'encyclopedia/entry.html', {
-        'post_list': post_list
+    post_list = Post.objects.fliter(title_icontains=q)
+    return render(request, 'encyclopedia/search.html', {
+        "post_list": post_list,
+        "entries": entries
     })
 
 
