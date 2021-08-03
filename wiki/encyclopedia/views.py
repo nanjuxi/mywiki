@@ -4,6 +4,7 @@ import random
 import markdown2
 from django import forms
 from django.urls import reverse
+from django.contrib import messages
 
 class EntryForm(forms.Form):
     title = forms.CharField()
@@ -33,5 +34,26 @@ def entry(request, title):
         return render(request, "encyclopedia/error.html", {
             "random": rand
         })
+
+
+def search(request):
+    entries = util.list_entries()
+    rand = random.choice(entries)
+    q = request.GET.get('q')
+    error_msg = ''
+
+    if not q:
+        error_msg = '请输入关键词'
+        messages.add_message(request, messages.ERROR, error_msg, extra_tags='danger')
+    return  render(request, "encyclopedia/index.html", {
+        "random": rand
+    })
+
+    post_list = Post.objects.fliter(title_icontains = q)
+    return render(request, 'encyclopedia/entry.html', {
+        'post_list': post_list
+    })
+
+
 
 
