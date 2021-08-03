@@ -36,7 +36,7 @@
                 <p>{{error_msg}}</p>
                 {% endif %}
 
-                {% for entry in entries %}
+                {% for post_list in post_list %}
                    <li><a href="{% url 'entry' entry %}">{{entry}}</a></li>
                 {% empty %}
                 <div class="no">
