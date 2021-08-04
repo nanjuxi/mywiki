@@ -43,18 +43,27 @@ def search(request):
     rand = random.choice(entries)
     q = request.GET.get('q', '')
     results = []
+
     if q in entries:
         return redirect('entry', title=q)
 
-    for entry in entries:
-        if q in entry:
-            results.append(entry)
-            return render(request, "encyclopedia/search.html", {
-                "results": results,
-            })
+    else:
+         for entry in entries:
+             if q in entry:
+                 results.append(entry)
 
-        else:
-            return render(request, "encyclopedia/error.html")
+         return render(request, "encyclopedia/search.html", {
+             "results": results
+         })
+
+
+
+
+
+
+
+
+
 
 
 
