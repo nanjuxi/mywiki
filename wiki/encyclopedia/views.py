@@ -49,7 +49,7 @@ def search(request):
 
     else:
          for entry in entries:
-             if q in entry:
+             if q.upper() in entry.upper():
                  results.append(entry)
 
          return render(request, "encyclopedia/search.html", {
