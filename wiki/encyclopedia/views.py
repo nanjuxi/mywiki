@@ -2,10 +2,12 @@ from django.shortcuts import render
 from . import util
 import random
 import markdown2
+from markdown2 import Markdown
 from django import forms
 from django.urls import reverse
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 
 class EntryForm(forms.Form):
     title = forms.CharField()
@@ -36,26 +38,17 @@ def entry(request, title):
             "random": rand
         })
 
-
 def search(request):
     entries = util.list_entries()
     rand = random.choice(entries)
-    q = request.GET.get('q')
-    error_msg = ''
-    results = []
+    q = request.GET.get('q', '')
 
-    if request.method == "GET":
-        if q in entries:
-            return HttpResponseRedirect("/wiki/" + request.GET.get("q"))
+    if q in entries:
+        return redirect('entry', title=q)
 
-        else:
-            for entry in entries:
-                if q in entry:
-                    results.append(entry)
-                    return render(request, "encyclopedia/search.html", {
-                        "results": results,
-                        "random": rand
-                    })
+
+
+
 
 
 
