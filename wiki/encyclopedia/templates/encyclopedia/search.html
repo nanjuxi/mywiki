@@ -7,14 +7,16 @@
 {% endblock %}
 
 {% block body %}
-
     <h2>Search results:</h2>
     <ul>
+        {% if results %}
         {% for result in results %}
             <li>
                 <a href="{% url 'entry' result %}">{{ result }}</a>
             </li>
         {% endfor %}
+        {%  else  %}
+        No Results
+        {%  endif  %}
     </ul>
-
 {% endblock %}
