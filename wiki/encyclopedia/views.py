@@ -44,7 +44,10 @@ def search(request):
     q = request.GET.get('q', '')
     results = []
 
-    if q in entries:
+    if (q == ''):
+        return render(request, "encyclopedia/error.html")
+
+    elif q in entries:
         return redirect('entry', title=q)
 
     else:
@@ -53,7 +56,8 @@ def search(request):
                  results.append(entry)
 
          return render(request, "encyclopedia/search.html", {
-             "results": results
+             "results": results,
+             "q": q
          })
 
 
