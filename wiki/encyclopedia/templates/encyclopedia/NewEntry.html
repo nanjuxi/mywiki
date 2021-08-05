@@ -8,21 +8,17 @@
 
 {% block body %}
 
-    <h3>Create a new entry:</h3>
-    <form action="{% url 'NewEntry' %}" method="post">
-        {% csrf_token %}
-        {% if message %}
-            <div>{{ message }}</div>
-        {% endif %}
-        <div class="label">
-            <label>Title: </label>
-            <textarea id="pageTitle" name="pageTitle">{{ form.title }}</textarea>
-        </div>
-        <div>
-             <label>Content: </label>
-            <textarea id="bodyContent" name="bodyContent">{{ form.content }}</textarea>
-        </div>
-        <br><input type="submit" value="Create">
-    </form>
-
+<h3>Create a new entry:</h3>
+{% if message %}
+ {{message}}
+{% else %}
+<form action="{% url 'entry' new_title%}" method="post">
+<label >Title:</label>
+<textarea id="new_title" name="new_title" ></textarea>
+  <br><br>
+    <label >Content:</label>
+<textarea id="new_content" name="new_content" ></textarea>
+    <input type="button" value="保存">
+</form>
+{% endif %}
 {% endblock %}
