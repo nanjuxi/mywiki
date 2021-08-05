@@ -16,16 +16,13 @@
         {% endif %}
         <div class="label">
             <label>Title: </label>
-            {{ form.title }}
+            <textarea id="pageTitle" name="pageTitle">{{ form.title }}</textarea>
         </div>
         <div>
-            {{ form.content }}
+             <label>Content: </label>
+            <textarea id="bodyContent" name="bodyContent">{{ form.content }}</textarea>
         </div>
         <br><input type="submit" value="Create">
     </form>
-
-    <style>
-        .label {margin-bottom: 10px;}
-    </style>
 
 {% endblock %}
