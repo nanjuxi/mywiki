@@ -67,7 +67,7 @@ def NewEntry(request):
 
     if request.method == "POST":
         form = EntryForm(request.POST)
-        title = request.POST['title']
+        title = request.POST('title')
 
         if title in entries:
             return render(request, "encyclopedia/NewEntry.html", {
@@ -82,13 +82,25 @@ def NewEntry(request):
                 content = form.cleaned_data["content"]
 
                 util.save_entry(title, content)
-                return redirect('entry', title=title)
+                return HttpResponseRedirect(reverse("entry", args=(title,)))
 
 
             else:
-                return render(request, "encyclopedia/error.html")
+                title = request.POST['title']
+                content = request.POST['content']
+                if not title:
+                    return render(request, "encyclopedia/create.html", {
+                        "no_title": "Title is required.",
+                        "form": EntryForm(),
+                        "random": rand
+                    })
 
-
+                elif not content:
+                    return render(request, "encyclopedia/create.html", {
+                        "no_title": "Content is required.",
+                        "form": EntryForm(),
+                        "random": rand
+                    })
 
 
 
