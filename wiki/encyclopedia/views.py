@@ -66,42 +66,17 @@ def NewEntry(request):
     rand = random.choice(entries)
 
     if request.method == "POST":
-        form = EntryForm(request.POST)
-        title = request.POST('title')
+        new_title = request.POST.get('new_title')
 
-        if title in entries:
+        if new_title in entries:
             return render(request, "encyclopedia/NewEntry.html", {
-                "message": "Page already exists.",
-                "form": EntryForm(),
-                "random": rand
+                "message": "Page already exists."
             })
 
         else:
-            if form.is_valid():
-                title = form.cleaned_data["title"]
-                content = form.cleaned_data["content"]
-
-                util.save_entry(title, content)
-                return HttpResponseRedirect(reverse("entry", args=(title,)))
-
-
-            else:
-                title = request.POST['title']
-                content = request.POST['content']
-                if not title:
-                    return render(request, "encyclopedia/create.html", {
-                        "no_title": "Title is required.",
-                        "form": EntryForm(),
-                        "random": rand
-                    })
-
-                elif not content:
-                    return render(request, "encyclopedia/create.html", {
-                        "no_title": "Content is required.",
-                        "form": EntryForm(),
-                        "random": rand
-                    })
-
+            title = new_title
+            content = request.POST.get('new_content')
+            util.save_entry(title, content)
 
 
 
