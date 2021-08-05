@@ -61,6 +61,33 @@ def search(request):
          })
 
 
+def NewEntry(request):
+    entries = util.list_entries()
+    rand = random.choice(entries)
+
+    if request.method == "POST":
+        form = EntryForm(request.POST)
+        title = request.POST['title']
+
+        if title in entries:
+            return render(request, "encyclopedia/NewEntry.html", {
+                "message": "Page already exists.",
+                "form": EntryForm(),
+                "random": rand
+            })
+
+        else:
+            if form.is_valid():
+                title = form.cleaned_data["title"]
+                content = form.cleaned_data["content"]
+
+                util.save_entry(title, content)
+                return redirect('entry', title=title)
+
+
+            else:
+                return render(request, "encyclopedia/error.html")
+
 
 
 
