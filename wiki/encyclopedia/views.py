@@ -8,6 +8,7 @@ from django.urls import reverse
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
+from django.views.decorators.csrf import csrf_exempt
 
 class EntryForm(forms.Form):
     title = forms.CharField()
@@ -62,6 +63,11 @@ def search(request):
 
 def NewEntry(request):
     return render(request, "encyclopedia/NewEntry.html",)
+
+@csrf_exempt
+def NewPage(request):
+    return render(request, "encyclopedia/index.html",)
+
 
 
 
