@@ -6,7 +6,8 @@
 </head>
 <body>
 <h3>Search New Page:</h3>
-<form action="" method="post">
+{%csrf_token%}
+<form action="{% url  'NewPage' %}" method="post">
     <p>Please input page title:</p>
     <input style="height: 25px; width: 400px;"  type="text" placeolder="Page Title:" name="PageTitle">
     <br><br>
