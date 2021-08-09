@@ -74,7 +74,9 @@ def NewPage(request):
         title = request.POST.get('PageTitle')
         content = request.POST.get('PageContent')
         util.save_entry(title=title, content=content)
-        return util.get_entry(title)
+        return render(request, "encyclopedia/NewEntry.html", {
+            "title": title,
+        })
 
 
 
