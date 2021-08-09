@@ -60,23 +60,9 @@ def search(request):
              "q": q
          })
 
-
 def NewEntry(request):
-    entries = util.list_entries()
-    rand = random.choice(entries)
+    return render(request, "encyclopedia/NewEntry.html",)
 
-    if request.method == "POST":
-        new_title = request.POST.get('new_title')
-
-        if new_title in entries:
-            return render(request, "encyclopedia/NewEntry.html", {
-                "message": "Page already exists."
-            })
-
-        else:
-            title = new_title
-            content = request.POST.get('new_content')
-            util.save_entry(title, content)
 
 
 
