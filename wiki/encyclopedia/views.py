@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
-from django.views.decorators.csrf import csrf_exempt
+
 
 class EntryForm(forms.Form):
     title = forms.CharField()
@@ -64,12 +64,18 @@ def search(request):
 def NewEntry(request):
     return render(request, "encyclopedia/NewEntry.html",)
 
-@csrf_exempt
+
 def NewPage(request):
     entries = util.list_entries()
     PageTitle = request.POST.get('PageTitle')
-    if PageTitle in entries:
+    if PageTitle.upper() in entries:
         return render(request, "encyclopedia/error.html")
+    else:
+        title = request.POST.get('PageTitle')
+        content = request.POST.get('PageContent')
+        util.save_entry(title=title, content=content)
+        return util.get_entry(title)
+
 
 
 
