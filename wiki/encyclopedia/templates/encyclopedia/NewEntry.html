@@ -5,8 +5,8 @@
     <title>Create New Page</title>
 </head>
 <body>
-{% if title %}
-  <a href="{% url 'entry' title %}">{{ title }}</a>
+{% if page_title %}
+  <a href="{% url 'entry' page_title %}">{{ page_title }}</a>
 {% else %}
 <h3>Search New Page:</h3>
 <form action="{% url  'NewPage' %}" method="post">
