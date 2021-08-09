@@ -66,7 +66,10 @@ def NewEntry(request):
 
 @csrf_exempt
 def NewPage(request):
-    return render(request, "encyclopedia/index.html",)
+    entries = util.list_entries()
+    PageTitle = request.POST.get('PageTitle')
+    if PageTitle in entries:
+        return render(request, "encyclopedia/error.html")
 
 
 
