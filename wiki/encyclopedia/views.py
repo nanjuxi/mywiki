@@ -71,11 +71,11 @@ def NewPage(request):
     if PageTitle.upper() in entries:
         return render(request, "encyclopedia/error.html")
     else:
-        title = request.POST.get('PageTitle')
-        content = request.POST.get('PageContent')
-        util.save_entry(title=title, content=content)
+        page_title = request.POST.get('PageTitle')
+        page_content = request.POST.get('PageContent')
+        util.save_entry(title=page_title, content=page_content)
         return render(request, "encyclopedia/NewEntry.html", {
-            "title": title,
+            "page_title": page_title,
         })
 
 
