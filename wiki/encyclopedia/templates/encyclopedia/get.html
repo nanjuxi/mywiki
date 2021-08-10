@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>edit</title>
 </head>
 <body>
-$END$
+<form action="{% url 'edit' %}">
+<textarea>{{content | safe}}</textarea>
+    <button type="submit">保存</button>
+</form>
 </body>
 </html>
