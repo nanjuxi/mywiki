@@ -10,16 +10,17 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 
 
+
 class EntryForm(forms.Form):
     title = forms.CharField()
     content = forms.CharField(widget=forms.Textarea)
 
 def index(request):
     entries = util.list_entries()
-    rand = random.choice(entries)
+    # rand1 = random.choice(entries)
     return render(request, "encyclopedia/index.html", {
         "entries": entries,
-        "random": rand
+        # "random": rand1
     })
 
 def entry(request, title):
@@ -64,28 +65,39 @@ def search(request):
 def NewEntry(request):
     return render(request, "encyclopedia/NewEntry.html",)
 
-
 def NewPage(request):
     entries = util.list_entries()
-    PageTitle = request.POST.get('PageTitle')
-    if PageTitle.upper() in entries:
+    page_title = request.POST.get('PageTitle')
+    if page_title in entries:
         return render(request, "encyclopedia/error.html")
     else:
         page_title = request.POST.get('PageTitle')
-        page_content = request.POST.get('PageContent')
-        util.save_entry(title=page_title, content=page_content)
+        content = request.POST.get('PageContent')
+        util.save_entry(title=page_title, content=content)
         return render(request, "encyclopedia/NewEntry.html", {
             "page_title": page_title,
         })
 
+def get(request):
+    entries = util.list_entries()
+    for entry in entries:
+        title = entry
+    content = util.get_entry(title)
+    return render(request, "encyclopedia/get.html", {
+        "content": content,
+    })
 
 
+def edit(request):
+    return render(request, "encyclopedia/edit.html", {
+    })
 
-
-
-
-
-
-
-
+def rand(request):
+    entries = util.list_entries()
+    rand = random.choice(entries)
+    content = util.get_entry(rand)
+    return render(request, "encyclopedia/rand.html", {
+        "rand": rand,
+        "content": content
+    })
 
