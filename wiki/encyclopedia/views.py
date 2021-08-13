@@ -90,9 +90,6 @@ def get(request, pagetitle):
 def edit(request, title):
     content = request.POST.get('edit')
     util.save_entry(title=title, content=content)
-    # entries = util.list_entries()
-    # if title in entries:
-    #     content = util.get_entry(title)
     return render(request, "encyclopedia/edit.html", {
         "title": title,
         "content": content
