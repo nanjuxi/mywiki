@@ -11,6 +11,8 @@ from django.shortcuts import redirect
 
 
 
+
+
 class EntryForm(forms.Form):
     title = forms.CharField()
     content = forms.CharField(widget=forms.Textarea)
@@ -74,9 +76,7 @@ def NewPage(request):
         page_title = request.POST.get('PageTitle')
         content = request.POST.get('PageContent')
         util.save_entry(title=page_title, content=content)
-        return render(request, "encyclopedia/NewEntry.html", {
-            "page_title": page_title,
-        })
+        return redirect('entry', title=page_title)
 
 def get(request, pagetitle):
         content = util.get_entry(pagetitle)
@@ -90,13 +90,11 @@ def get(request, pagetitle):
 def edit(request, title):
     content = request.POST.get('edit')
     util.save_entry(title=title, content=content)
-    # entries = util.list_entries()
-    # if title in entries:
-    #     content = util.get_entry(title)
-    return render(request, "encyclopedia/edit.html", {
-        "title": title,
-        "content": content
-    })
+    # return render(request, "encyclopedia/index.html", {
+    #     "title": title,
+    #     "content": content
+    # })
+    return redirect('index')
 
 
 def rand(request):

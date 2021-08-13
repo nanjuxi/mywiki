@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>edit</title>
-</head>
-<body>
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+get
+{% endblock %}
+
+{% block body %}
 <form name="edit" method="post" action="{% url 'edit' title %}">
     {%csrf_token%}
 <textarea name="edit" style="height:300px; width:400px;">{{content | safe}}</textarea>
     <br><br>
     <button type="submit">保存</button>
 </form>
-</body>
-</html>
+{% endblock %}

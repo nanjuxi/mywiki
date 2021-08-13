@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+edit
+{% endblock %}
+
+{% block body %}
+<form action="">
  {{content | safe}}
-</body>
-</html>
+</form>
+{% endblock %}

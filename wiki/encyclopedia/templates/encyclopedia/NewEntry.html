@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Create New Page</title>
-</head>
-<body>
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+New Entry
+{% endblock %}
+
+{% block body %}
 {% if page_title %}
   <a href="{% url 'entry' page_title %}">{{ page_title }}</a>
 {% else %}
@@ -20,5 +20,4 @@
     <button type="submit">保存</button>
 </form>
 {% endif %}
-</body>
-</html>
+{% endblock %}
