@@ -6,7 +6,9 @@
 
 {% block body %}
 <div>
-  {{content | safe}}
-  <a href="{% url 'get' %}">edit page</a>
+  <form action="{% url 'get' title%}">
+    {{content | safe}}
+    <input type="submit" value="edit {{ title }}">
+  </form>
 </div>
 {% endblock %}

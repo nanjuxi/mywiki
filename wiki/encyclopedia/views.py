@@ -25,14 +25,14 @@ def index(request):
 
 def entry(request, title):
     entries = util.list_entries()
-    rand = random.choice(entries)
+    # rand = random.choice(entries)
     try:
         content = util.get_entry(title)
         output = markdown2.markdown(content)
         return render(request, "encyclopedia/entry.html", {
-            "title": title,
             "content": output,
-            "random": rand
+            "title": title
+            # "random": rand
         })
 
     except TypeError:
@@ -78,13 +78,13 @@ def NewPage(request):
             "page_title": page_title,
         })
 
-def get(request):
+def get(request, title):
     entries = util.list_entries()
     for entry in entries:
-        title = entry
-    content = util.get_entry(title)
-    return render(request, "encyclopedia/get.html", {
-        "content": content,
+        content = util.get_entry(entry)
+        output = markdown2.markdown(content)
+        return render(request, "encyclopedia/get.html", {
+            "content": output,
     })
 
 
@@ -96,8 +96,9 @@ def rand(request):
     entries = util.list_entries()
     rand = random.choice(entries)
     content = util.get_entry(rand)
+    output = markdown2.markdown(content)
     return render(request, "encyclopedia/rand.html", {
         "rand": rand,
-        "content": content
+        "content": output
     })
 
