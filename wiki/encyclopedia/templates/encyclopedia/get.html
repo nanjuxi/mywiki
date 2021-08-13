@@ -5,8 +5,9 @@
     <title>edit</title>
 </head>
 <body>
-<form action="{% url 'edit' %}">
-<textarea style="height:300px; width:400px;">{{content | safe}}</textarea>
+<form name="edit" method="post" action="{% url 'edit' title %}">
+    {%csrf_token%}
+<textarea name="edit" style="height:300px; width:400px;">{{content | safe}}</textarea>
     <br><br>
     <button type="submit">保存</button>
 </form>

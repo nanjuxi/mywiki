@@ -78,19 +78,26 @@ def NewPage(request):
             "page_title": page_title,
         })
 
-def get(request, title):
-    entries = util.list_entries()
-    for entry in entries:
-        content = util.get_entry(entry)
+def get(request, pagetitle):
+        content = util.get_entry(pagetitle)
         output = markdown2.markdown(content)
         return render(request, "encyclopedia/get.html", {
-            "content": output,
+            "content": content,
+            "title": pagetitle
     })
 
 
-def edit(request):
+def edit(request, title):
+    content = request.POST.get('edit')
+    util.save_entry(title=title, content=content)
+    # entries = util.list_entries()
+    # if title in entries:
+    #     content = util.get_entry(title)
     return render(request, "encyclopedia/edit.html", {
+        "title": title,
+        "content": content
     })
+
 
 def rand(request):
     entries = util.list_entries()

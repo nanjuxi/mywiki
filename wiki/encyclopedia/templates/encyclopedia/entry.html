@@ -6,7 +6,7 @@
 
 {% block body %}
 <div>
-  <form action="{% url 'get' title%}">
+  <form action="{% url 'get' title %}">
     {{content | safe}}
     <input type="submit" value="edit {{ title }}">
   </form>
